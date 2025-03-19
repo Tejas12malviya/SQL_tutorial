@@ -1,0 +1,35 @@
+SET SQL_SAFE_UPDATES = 0;
+
+create database Transaction;
+
+create table if not exists User(
+user_id int primary key auto_increment,
+name varchar(50),
+salary int default 0,
+acc_id int )
+;
+
+alter table User 
+add column acc_balance int ;
+
+Insert into User (name,acc_id)
+values
+("Rohan",123),
+("Mohan",456),
+("Tony",789);
+
+select * from User;
+
+Update User 
+set salary=10000;
+
+start transaction;
+update user set acc_balance=10000;
+commit;
+
+start transaction;
+update User set acc_balance=acc_balance-500 where acc_id=123;
+update User set acc_balance=acc_balance+500 where acc_id=456;
+commit;
+
+select * from User;
